@@ -10,7 +10,9 @@
     ],
     "Website": "https://reactor.codes",
     "ServerVersion": "*",
-    "Dependencies": {},
+    "Dependencies": {
+        "codes.reactor.sdk:ReactorSDK": "*"
+    },
     "OptionalDependencies": {},
     "DisabledByDefault": false,
     "Main": "codes.reactor.rtp.RandomTeleportPlugin"

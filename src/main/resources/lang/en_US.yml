@@ -10,3 +10,8 @@ messages:
   cant-find-safe-location: "<red>Can't find a safe location. Please try again"
   cant-found-valid-world: "<red>Can't found a valid world to teleport"
   no-longer-in-cooldown: "<red>Now you can use /rtp again!"
+  in-queue: "<red>You already been in queue to random teleported"
+
+  no-permission:
+    use: "<red>You don't have enough permissions to use /rtp"
+    admin: "<red>You don't have enought permissions to use /rtpadmin"

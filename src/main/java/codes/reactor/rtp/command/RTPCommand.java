@@ -1,6 +1,7 @@
 package codes.reactor.rtp.command;
 
-import codes.reactor.rtp.handler.RTPHandler;
+import codes.reactor.rtp.config.RTPConfig;
+import codes.reactor.rtp.system.RTPSystem;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.command.system.CommandContext;
 import com.hypixel.hytale.server.core.command.system.basecommands.CommandBase;
@@ -9,11 +10,13 @@ import org.jetbrains.annotations.NotNull;
 
 public final class RTPCommand extends CommandBase {
 
-    private final RTPHandler rtpHandler;
+    private final RTPSystem rtpSystem;
+    private final RTPConfig rtpConfig;
 
-    public RTPCommand(RTPHandler rtpHandler) {
+    public RTPCommand(RTPSystem rtpSystem, RTPConfig rtpConfig) {
         super("rtp", "Teleport a player to random location", false);
-        this.rtpHandler = rtpHandler;
+        this.rtpSystem = rtpSystem;
+        this.rtpConfig = rtpConfig;
     }
 
     @Override
@@ -22,6 +25,12 @@ public final class RTPCommand extends CommandBase {
             commandContext.sender().sendMessage(Message.raw("You need be a player to use this command"));
             return;
         }
-        rtpHandler.teleport(player);
+
+        if (!player.hasPermission("rtp.use")) {
+            rtpConfig.getMultiLang().send("no-permission.use", player);
+            return;
+        }
+
+        rtpSystem.teleport(player);
     }
 }

@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import java.io.IOException;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
 @RequiredArgsConstructor
@@ -35,7 +36,6 @@ public final class RTPConfigLoader {
 
     private void loadConfig(final ConfigSection config) {
         rtpConfig.maxRadius = config.getDouble("max-radius");
-        rtpConfig.heightOffset = config.getDouble("height-offset");
 
         final ConfigSection blackListSection = config.getOrCreateSection("blacklist-worlds");
         rtpConfig.blacklistedWorlds = blackListSection.getBoolean("enable")
@@ -48,13 +48,12 @@ public final class RTPConfigLoader {
             : null;
 
         final ConfigSection onTeleportSection = config.getOrCreateSection("on-teleport");
-        rtpConfig.noDamageTime = TimeFormatter.convertToSeconds(onTeleportSection.getOrDefault("no-damage-time", "2s"));
-        rtpConfig.cooldown = TimeFormatter.convertToSeconds(onTeleportSection.getOrDefault("cooldown", "10s"));
+        rtpConfig.noDamageTime = TimeUnit.SECONDS.toMillis(TimeFormatter.convertToSeconds(onTeleportSection.getOrDefault("no-damage-time", "3s")));
+        rtpConfig.cooldown = TimeUnit.SECONDS.toMillis(TimeFormatter.convertToSeconds(onTeleportSection.getOrDefault("cooldown", "10s")));
 
         final ConfigSection algorithmSection = config.getOrCreateSection("algorithm");
         rtpConfig.maxBlockTries = algorithmSection.getInt("max-blocks-tries", 5);
         rtpConfig.maxChunkTries = algorithmSection.getInt("max-chunk-tries", 3);
-        rtpConfig.cancelIfCantFindSafeLocation = algorithmSection.getBoolean("cancel-if-cant-find-safe-location", true);
-        logger.at(Level.INFO).log("RTP Config loaded!");
+        logger.at(Level.INFO).log("RTP Config loaded! " + rtpConfig);
     }
 }

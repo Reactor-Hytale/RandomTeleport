@@ -1,5 +1,9 @@
+# Permissions:
+# rtp.use -> Permission to use /rtp
+# rtp.cooldownbypass -> Permission to bypass cooldown
+# rtp.admin -> Permission to use /rtpadmin
+
 max-radius: 3000
-height-offset: 1 # +1 block
 
 blacklist-worlds:
   enable: false
@@ -18,6 +22,3 @@ on-teleport:
 algorithm:
   max-chunk-tries: 3 # How many chunks need check
   max-blocks-tries: 5 # How many blocks need check in the same chunk
-
-  # If this option is in false, it will teleport to random chunk
-  cancel-if-cant-find-safe-location: true

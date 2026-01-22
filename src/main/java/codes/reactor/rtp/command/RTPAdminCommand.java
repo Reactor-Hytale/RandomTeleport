@@ -32,6 +32,12 @@ public final class RTPAdminCommand extends CommandBase {
     protected void executeSync(@NotNull final CommandContext commandContext) {
         final String message = commandContext.get(this.messageArg);
         final CommandSender sender = commandContext.sender();
+
+        if (!sender.hasPermission("rtp.admin")) {
+            rtpConfig.getMultiLang().send("no-permission.admin", sender);
+            return;
+        }
+
         if (message.equalsIgnoreCase("reload")) {
             rtpConfigLoader.load();
             sender.sendMessage(MiniMessage.format("<green>Config reloaded!"));

@@ -13,12 +13,9 @@ public final class RTPConfig {
     String worldTarget;
     double maxRadius;
 
-    int noDamageTime;
-    int cooldown;
+    long noDamageTime;
+    long cooldown;
 
     int maxChunkTries;
     int maxBlockTries;
-    double heightOffset;
-
-    boolean cancelIfCantFindSafeLocation;
 }

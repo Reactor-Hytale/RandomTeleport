@@ -4,7 +4,7 @@ import codes.reactor.rtp.command.RTPAdminCommand;
 import codes.reactor.rtp.command.RTPCommand;
 import codes.reactor.rtp.config.RTPConfig;
 import codes.reactor.rtp.config.RTPConfigLoader;
-import codes.reactor.rtp.handler.RTPHandler;
+import codes.reactor.rtp.system.RTPSystem;
 import codes.reactor.rtp.task.TeleportCooldownCleanupTask;
 import codes.reactor.sdk.config.ConfigServiceByContext;
 import codes.reactor.sdk.plugin.ReactorPlugin;
@@ -25,7 +25,7 @@ public final class RandomTeleportPlugin extends ReactorPlugin {
     @Override
     protected void setup() {
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor(r -> {
-            Thread t = new Thread(r, "RTP-Cooldown-Cleanup");
+            Thread t = new Thread(r, "RTP-Task");
             t.setDaemon(true);
             return t;
         }); // I'm sorry, hytale don't have schedulers :(
@@ -40,8 +40,8 @@ public final class RandomTeleportPlugin extends ReactorPlugin {
         rtpConfigLoader.load();
 
         final Map<String, Long> playersInCooldown = new ConcurrentHashMap<>();
-        final RTPHandler rtpHandler = new RTPHandler(playersInCooldown, rtpConfig, getLogger());
-        getCommandRegistry().registerCommand(new RTPCommand(rtpHandler));
+        final RTPSystem rtpSystem = new RTPSystem(playersInCooldown, rtpConfig, getLogger());
+        getCommandRegistry().registerCommand(new RTPCommand(rtpSystem, rtpConfig));
         getCommandRegistry().registerCommand(new RTPAdminCommand(rtpConfigLoader, rtpConfig));
 
         scheduledExecutorService.scheduleWithFixedDelay(

@@ -1,6 +1,5 @@
 plugins {
     id("java")
-    id("com.gradleup.shadow") version "9.3.0"
 }
 
 group = "codes.reactor"
@@ -32,9 +31,7 @@ dependencies {
 
     compileOnly(files(hytaleServerJar))
     testRuntimeOnly(files(hytaleServerJar))
-    implementation(files("libs/ReactorSDK-1.0.0-all.jar"))
-
-    implementation("org.snakeyaml:snakeyaml-engine:3.0.1")
+    compileOnly(files("libs/ReactorSDK-1.0.0-all.jar"))
 }
 
 tasks.withType<JavaCompile>().configureEach {
@@ -49,7 +46,7 @@ tasks.test {
     useJUnitPlatform()
 }
 
-tasks.shadowJar {
+tasks.jar {
     archiveBaseName = "rxRTP"
 }
 
