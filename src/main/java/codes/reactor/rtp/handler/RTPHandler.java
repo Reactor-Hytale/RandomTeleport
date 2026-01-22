@@ -111,7 +111,7 @@ public final class RTPHandler {
 
             searchSafeLocation(player, world, chunkAttempts, locationsTested);
         }).exceptionally(ex -> {
-            logger.at(Level.SEVERE).withCause(ex).log("Error on search valid chunks in: " + world.getName());
+            logger.atSevere().withCause(ex).log("Error on search valid chunks in: " + world.getName());
             return null;
         });
     }
@@ -119,16 +119,7 @@ public final class RTPHandler {
     private boolean isSafe(BlockType block) {
         if (block == null) return false;
 
-        // 1. Debe ser un bloque sólido (no aire, no flores)
         return block.getOpacity() == Opacity.Solid;
-//
-//        // 3. Verificación de "Suffocation": El bloque de arriba y el siguiente deben ser pasables (aire/gas)
-//        // Chequeamos y+1 y y+2 para que quepa el modelo del jugador
-//        BlockType headBlock = chunk.getBlockType(x, y + 1, z);
-//        BlockType eyeBlock = chunk.getBlockType(x, y + 2, z);
-//
-//        return (headBlock == null || headBlock.getOpacity() != Opacity.Solid) &&
-//            (eyeBlock == null || eyeBlock.getOpacity() != Opacity.Solid);
     }
 
     private void handleFailure(Player player, World world, List<Location> locationsTested) {
