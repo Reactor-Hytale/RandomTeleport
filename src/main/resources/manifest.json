@@ -1,0 +1,17 @@
+{
+    "Group": "codes.reactor.rtp",
+    "Name": "rxRTP",
+    "Version": "1.0.0",
+    "Description": "A Basic random teleport plugin.",
+    "Authors": [
+        {
+            "Name": "Reactor"
+        }
+    ],
+    "Website": "https://reactor.codes",
+    "ServerVersion": "*",
+    "Dependencies": {},
+    "OptionalDependencies": {},
+    "DisabledByDefault": false,
+    "Main": "codes.reactor.rtp.RandomTeleportPlugin"
+}

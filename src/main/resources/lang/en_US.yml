@@ -1,0 +1,12 @@
+messages:
+  #%x%, %y%, %z% and %world%:
+  teleported:
+    - " "
+    - " <green><b>Teleport to: <gray>(%world%, %x% %y% %z%)"
+    - " "
+
+  cooldown-message: "<red>Currently in cooldown, you need wait: %time%"
+  blacklist-world: "<red>You are in a blacklisted world"
+  cant-find-safe-location: "<red>Can't find a safe location. Please try again"
+  cant-found-valid-world: "<red>Can't found a valid world to teleport"
+  no-longer-in-cooldown: "<red>Now you can use /rtp again!"

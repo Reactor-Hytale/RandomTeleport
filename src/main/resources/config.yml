@@ -1,0 +1,23 @@
+max-radius: 3000
+height-offset: 1 # +1 block
+
+blacklist-worlds:
+  enable: false
+  list:
+    - "ExampleWorld1"
+    - "ExampleWorld2"
+
+target-world: # Always random teleport to this world
+  enable: false
+  world: "world"
+
+on-teleport:
+  no-damage-time: 3s
+  cooldown: 5m # Support 3h, 1d, 10s, 2m, etc
+
+algorithm:
+  max-chunk-tries: 3 # How many chunks need check
+  max-blocks-tries: 5 # How many blocks need check in the same chunk
+
+  # If this option is in false, it will teleport to random chunk
+  cancel-if-cant-find-safe-location: true
