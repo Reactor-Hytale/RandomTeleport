@@ -88,7 +88,7 @@ public final class RTPSystem {
         final int x = (RANDOM.nextBoolean() ? 1 : -1) * RANDOM.nextInt((int) rtpConfig.getMaxRadius());
         final int z = (RANDOM.nextBoolean() ? 1 : -1) * RANDOM.nextInt((int) rtpConfig.getMaxRadius());
 
-        world.getNonTickingChunkAsync(ChunkUtil.indexChunkFromBlock(x, z)).thenAccept(chunk -> {
+        world.getChunkAsync(ChunkUtil.indexChunkFromBlock(x, z)).thenAccept(chunk -> {
             if (chunk == null) {
                 searchSafeLocation(player, world, chunkAttempts);
                 return;
@@ -172,6 +172,7 @@ public final class RTPSystem {
             Vector3f.ZERO
         ));
 
+        reference.getStore().getRegistry().unregisterSystem(NoDamageEventSystem.class); // Remove old rtp event system
         reference.getStore().getRegistry().registerSystem(new NoDamageEventSystem(System.currentTimeMillis(), rtpConfig));
 
         rtpConfig.getMultiLang().send("teleported", player,
