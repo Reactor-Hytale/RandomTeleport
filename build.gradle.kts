@@ -7,13 +7,13 @@ version = "1.0.0"
 
 repositories {
     mavenCentral()
-}
-
-val appDataDir = System.getenv("APPDATA") ?: (System.getProperty("user.home") + "/AppData/Roaming")
-val hytaleServerJar = file("$appDataDir/Hytale/install/release/package/game/latest/Server/HytaleServer.jar")
-
-if (!hytaleServerJar.exists()) {
-    throw GradleException("Can't found HytaleServer.jar in: $hytaleServerJar")
+    maven {
+        url = uri("https://reactor-hytale.github.io/maven")
+    }
+    maven {
+        name = "hytale-pre-release"
+        url = uri("https://maven.hytale.com/pre-release")
+    }
 }
 
 dependencies {
@@ -29,18 +29,11 @@ dependencies {
 
     compileOnly("org.jetbrains:annotations:26.0.2-1")
 
-    compileOnly(files(hytaleServerJar))
-    testRuntimeOnly(files(hytaleServerJar))
-    compileOnly(files("libs/ReactorSDK-1.0.0-all.jar"))
+    compileOnly("com.hypixel.hytale:Server:2026.01.22-6f8bdbdc4")
+
+    compileOnly("codes.reactor:reactor-sdk:1.1.0")
 }
 
-tasks.withType<JavaCompile>().configureEach {
-    doFirst {
-        if (!hytaleServerJar.exists()) {
-            throw GradleException("Can't found HytaleServer.jar in: $hytaleServerJar")
-        }
-    }
-}
 
 tasks.test {
     useJUnitPlatform()

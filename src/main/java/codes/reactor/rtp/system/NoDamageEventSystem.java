@@ -28,7 +28,6 @@ public final class NoDamageEventSystem extends DamageEventSystem {
         Player playerComponent = archetypeChunk.getComponent(i, Player.getComponentType());
 
         assert playerComponent != null;
-        playerComponent.sendMessage(Message.raw("TE VOY A ROBARRRR " + (System.currentTimeMillis() - time) + (System.currentTimeMillis() - time < rtpConfig.getNoDamageTime())));
         if (System.currentTimeMillis() - time < rtpConfig.getNoDamageTime()) {
             damage.setCancelled(true);
             return;
